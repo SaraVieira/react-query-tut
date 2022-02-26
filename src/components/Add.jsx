@@ -9,6 +9,8 @@ export const AddNew = () => {
   const addTransaction = async (e) => {
     e.preventDefault();
     await mutation.mutateAsync({ amount, description });
+    setDescription("");
+    setAmount("");
   };
 
   return (
@@ -19,16 +21,16 @@ export const AddNew = () => {
       <div className="bg-white rounded-md">
         <form className="mt-4" onSubmit={addTransaction}>
           <div className="my-5 text-sm">
-            <label htmlFor="text" className="block text-black">
+            <label htmlFor="description" className="block text-black">
               Description
             </label>
             <input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              type="text"
+              type="description"
               required
               className="rounded-sm px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
-              placeholder="Enter Text"
+              placeholder="Enter Description"
             />
           </div>
           <div className="my-5 text-sm">
