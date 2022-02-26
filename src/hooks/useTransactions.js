@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { TRANSACTIONS_QUERY, URL } from "../constants";
 
 export const useTransactions = () => {
-  const { data: transactions, isLoading } = useQuery(["transactions"], () =>
-    fetch("https://legitbackend.wtf/box_80b4b81c19b8cd6b1155").then((rsp) =>
-      rsp.json()
-    )
+  const { data: transactions, isLoading } = useQuery([TRANSACTIONS_QUERY], () =>
+    fetch(URL).then((rsp) => rsp.json())
   );
 
   return {

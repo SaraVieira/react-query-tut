@@ -1,16 +1,14 @@
 import { useState } from "react";
+import { useCreateTransaction } from "../hooks/useCreateTransaction";
 
 export const AddNew = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState();
-  const addTransaction = (e) => {
+  const mutation = useCreateTransaction();
+
+  const addTransaction = async (e) => {
     e.preventDefault();
-    alert(
-      JSON.stringify({
-        amount,
-        description,
-      })
-    );
+    await mutation.mutateAsync({ amount, description });
   };
 
   return (
@@ -53,6 +51,7 @@ export const AddNew = () => {
           </div>
           <div className="my-5">
             <button
+              disabled={mutation.isLoading}
               type="submit"
               className="rounded-sm block text-center text-white bg-gray-800 p-3 duration-300  hover:bg-black w-full"
             >

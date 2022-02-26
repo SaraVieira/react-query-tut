@@ -1,14 +1,24 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { useDeleteTransaction } from "../hooks/useDeleteTransaction";
+import { useEditTransaction } from "../hooks/useEditTransaction";
 import { useTransactions } from "../hooks/useTransactions";
 import { EditIcon, XIcon } from "./Icons";
 
 const Transaction = (transaction) => {
   const [editing, setEditing] = useState(false);
   const [amount, setAmount] = useState(transaction.amount);
-  const deleteTransaction = () => {};
-  const editTransaction = (e) => {
+  const mutation = useDeleteTransaction({ id: transaction._id });
+  const mutationEdit = useEditTransaction({ id: transaction._id });
+  const deleteTransaction = () => {
+    mutation.mutate();
+  };
+  const editTransaction = async (e) => {
     e.preventDefault();
+    mutationEdit.mutateAsync({
+      description: transaction.description,
+      amount,
+    });
     setEditing(false);
   };
 
