@@ -4,13 +4,16 @@ import { useCreateTransaction } from "../hooks/useCreateTransaction";
 export const AddNew = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState();
-  const mutation = useCreateTransaction();
+  const mutation = useCreateTransaction({
+    onSuccess: () => {
+      setDescription("");
+      setAmount("");
+    },
+  });
 
   const addTransaction = async (e) => {
     e.preventDefault();
     await mutation.mutateAsync({ amount, description });
-    setDescription("");
-    setAmount("");
   };
 
   return (

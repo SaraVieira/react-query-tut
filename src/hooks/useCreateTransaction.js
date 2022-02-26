@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { TRANSACTIONS_QUERY, URL } from "../constants";
 
-export const useCreateTransaction = () => {
+export const useCreateTransaction = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   const mutation = useMutation(
     ({ amount, description }) =>
@@ -16,7 +16,10 @@ export const useCreateTransaction = () => {
         }),
       }),
     {
-      onSuccess: () => queryClient.invalidateQueries([TRANSACTIONS_QUERY]),
+      onSuccess: () => {
+        queryClient.invalidateQueries([TRANSACTIONS_QUERY]);
+        onSuccess();
+      },
     }
   );
 

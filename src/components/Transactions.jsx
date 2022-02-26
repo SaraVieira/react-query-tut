@@ -8,18 +8,19 @@ import { EditIcon, XIcon } from "./Icons";
 const Transaction = (transaction) => {
   const [editing, setEditing] = useState(false);
   const [amount, setAmount] = useState(transaction.amount);
-  const mutation = useDeleteTransaction({ id: transaction._id });
+  const mutation = useDeleteTransaction({
+    id: transaction._id,
+    onSuccess: () => setEditing(false),
+  });
   const mutationEdit = useEditTransaction({ id: transaction._id });
-  const deleteTransaction = () => {
-    mutation.mutate();
-  };
+
+  const deleteTransaction = () => mutation.mutate();
   const editTransaction = async (e) => {
     e.preventDefault();
-    mutationEdit.mutateAsync({
+    await mutationEdit.mutateAsync({
       description: transaction.description,
       amount,
     });
-    setEditing(false);
   };
 
   return (
