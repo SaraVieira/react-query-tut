@@ -1,8 +1,8 @@
-import { QueryClient, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { TRANSACTIONS_QUERY, URL } from "../constants";
 
 export const useCreateTransaction = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const mutation = useMutation(
     ({ amount, description }) =>
       fetch(URL, {
