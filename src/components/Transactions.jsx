@@ -10,15 +10,17 @@ const Transaction = (transaction) => {
   const [amount, setAmount] = useState(transaction.amount);
   const mutation = useDeleteTransaction({
     id: transaction._id,
+  });
+  const mutationEdit = useEditTransaction({
+    id: transaction._id,
     onSuccess: () => setEditing(false),
   });
-  const mutationEdit = useEditTransaction({ id: transaction._id });
 
   const deleteTransaction = () => mutation.mutate();
   const editTransaction = async (e) => {
     e.preventDefault();
     await mutationEdit.mutateAsync({
-      description: transaction.description,
+      ...transaction,
       amount,
     });
   };
@@ -45,7 +47,9 @@ const Transaction = (transaction) => {
         {editing ? (
           <form onSubmit={editTransaction}>
             <input
+              className="border-[1px] border-slate-300 px-3 rounded-sm"
               type="number"
+              step="any"
               value={amount}
               onChange={(e) => setAmount(parseFloat(e.target.value))}
             />

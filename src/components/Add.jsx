@@ -50,6 +50,7 @@ export const AddNew = () => {
               onChange={(e) => setAmount(parseFloat(e.target.value))}
               type="number"
               required
+              step="any"
               className="rounded-sm px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
               placeholder="Enter Amount"
             />
