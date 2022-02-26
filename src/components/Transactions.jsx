@@ -1,19 +1,8 @@
 import classNames from "classnames";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { useTransactions } from "../hooks/useTransactions";
 import { EditIcon, XIcon } from "./Icons";
-
-const transactions = [
-  {
-    _id: "hgsddgj",
-    description: "Extra Money",
-    amount: 400,
-  },
-  {
-    _id: "76wghak",
-    description: "Lunch",
-    amount: -10,
-  },
-];
 
 const Transaction = (transaction) => {
   const [editing, setEditing] = useState(false);
@@ -67,14 +56,15 @@ const Transaction = (transaction) => {
 };
 
 export const Transactions = () => {
+  const { transactions, isLoading } = useTransactions();
+
   return (
     <div class="px-8 my-6">
       <div class="my-4 border-b w-full">
         <h2 class="font-semibold text-lg">History</h2>
       </div>
-      {transactions.map((transaction) => (
-        <Transaction {...transaction} />
-      ))}
+      {!isLoading &&
+        transactions.map((transaction) => <Transaction {...transaction} />)}
     </div>
   );
 };
