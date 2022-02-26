@@ -1,6 +1,16 @@
+import { useState } from "react";
+
 export const AddNew = () => {
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState();
   const addTransaction = (e) => {
     e.preventDefault();
+    alert(
+      JSON.stringify({
+        amount,
+        description,
+      })
+    );
   };
 
   return (
@@ -15,8 +25,10 @@ export const AddNew = () => {
               Description
             </label>
             <input
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               type="text"
-              autoFocus
+              required
               className="rounded-sm px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
               placeholder="Enter Text"
             />
@@ -31,14 +43,19 @@ export const AddNew = () => {
               </small>
             </label>
             <input
+              value={amount}
+              onChange={(e) => setAmount(parseFloat(e.target.value))}
               type="number"
-              autoFocus
+              required
               className="rounded-sm px-4 py-3 mt-1 focus:outline-none bg-gray-100 w-full"
               placeholder="Enter Amount"
             />
           </div>
           <div className="my-5">
-            <button className="rounded-sm block text-center text-white bg-gray-800 p-3 duration-300  hover:bg-black w-full">
+            <button
+              type="submit"
+              className="rounded-sm block text-center text-white bg-gray-800 p-3 duration-300  hover:bg-black w-full"
+            >
               Add Transaction
             </button>
           </div>
