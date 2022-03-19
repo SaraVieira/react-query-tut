@@ -46,7 +46,9 @@ const Transaction = (transaction) => {
         {editing ? (
           <form onSubmit={editTransaction}>
             <input
+              className="border-[1px] border-slate-300 px-3 rounded-sm"
               type="number"
+              step="any"
               value={amount}
               onChange={(e) => setAmount(parseFloat(e.target.value))}
             />
